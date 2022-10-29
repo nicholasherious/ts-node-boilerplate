@@ -7,12 +7,9 @@ interface IUser {
 
 export interface IUserModel extends IUser, Document {}
 
-const userSchema: Schema = new Schema<IUser>(
-  {
-    name: { type: String, require: true },
-    email: String,
-  },
-  { versionKey: false }
-);
+const userSchema: Schema = new Schema<IUser>({
+  name: { type: String, require: true },
+  email: String,
+});
 
 export default mongoose.model<IUserModel>('User', userSchema);
