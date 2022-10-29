@@ -7,9 +7,12 @@ interface IPost {
 
 export interface IPostModel extends IPost, Document {}
 
-const postSchema: Schema = new Schema<IPost>({
-  title: { type: String, required: true },
-  user: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
-});
+const postSchema: Schema = new Schema<IPost>(
+  {
+    title: { type: String, required: true },
+    user: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
+  },
+  { timestamps: true }
+);
 
 export default mongoose.model<IPostModel>('Post', postSchema);
