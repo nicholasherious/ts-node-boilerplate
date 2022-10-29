@@ -10,6 +10,7 @@ import { config } from './config/config';
 import Logging from './library/Logging';
 import User from './models/User';
 import userRoutes from './routes/User';
+import postRoutes from './routes/Post'
 
 const app: Application = express();
 
@@ -53,6 +54,7 @@ startServer();
 /** Routes */
 
 app.use('/user', userRoutes);
+app.use('/posts', postRoutes)
 
 app.get('/', async (req: Request, res: Response) => {
   res.send({ message: 'Hello Again Typescript World' });
