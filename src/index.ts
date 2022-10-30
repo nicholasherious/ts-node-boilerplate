@@ -3,14 +3,12 @@ import express, {
   NextFunction,
   Request,
   Response,
-  Router,
 } from 'express';
 import mongoose from 'mongoose';
 import { config } from './config/config';
 import Logging from './library/Logging';
-import User from './models/User';
 import userRoutes from './routes/User';
-import postRoutes from './routes/Post'
+import postRoutes from './routes/Post';
 
 const app: Application = express();
 
@@ -54,7 +52,7 @@ startServer();
 /** Routes */
 
 app.use('/user', userRoutes);
-app.use('/posts', postRoutes)
+app.use('/posts', postRoutes);
 
 app.get('/', async (req: Request, res: Response) => {
   res.send({ message: 'Hello Again Typescript World' });
@@ -66,13 +64,17 @@ app.get('/ping', (req: Request, res: Response, next: NextFunction) =>
   res.status(200).json({ message: 'pong' })
 );
 
-try {
-  app.listen(port, (): void => {
-    Logging.info(`Server running on port ${port}`);
-  });
-} catch (error) {
-  Logging.error(error);
+
+if(process.env.NODE_ENV !== 'test') {
+  try {
+    app.listen(port, (): void => {
+      Logging.info(`Server running on port ${port}`);
+    });
+  } catch (error) {
+    Logging.error(error);
+  }
 }
+
 
 /** Error handling */
 
